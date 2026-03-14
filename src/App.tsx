@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import "./styles/index.css";
 import LoginPage from "./pages/Login";
 import DashboardPage from "./pages/Dashboard.tsx";
@@ -18,6 +18,7 @@ function App() {
     <BrowserRouter>
      <Toast/>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route
           path="/login"
           element={

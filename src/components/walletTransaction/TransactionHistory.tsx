@@ -36,6 +36,10 @@ const columns: Column<TransactionHistoryType>[] = [
   {
     key: "transactionId",
     header: "Transaction ID",
+    render: (row) => {
+      const value = row.transactionId?.toString().trim();
+      return <span>{value ? value : "N/A"}</span>;
+    },
   },
   {
     key: "type",

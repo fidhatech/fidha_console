@@ -47,6 +47,23 @@ export type PayoutHistoryType = {
         transactionId:string,
 };
 
+export type WithdrawalRequestType = {
+  id: string;
+  name: string;
+  phone: string;
+  accountNumber: string;
+  ifscCode: string;
+  requestedAt: string;
+  requestedAmount: number;
+  netAmount: number;
+  fee: number;
+  status: string;
+};
+
+export type WithdrawalRequestResponse = PaginatedResponse<WithdrawalRequestType> & {
+  totalRequestedAmount: number;
+};
+
 export type DashboardStatistics = {
     data:{
       fidgetData: FidgetStatistics[],

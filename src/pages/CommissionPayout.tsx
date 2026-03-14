@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { CommissionFidget } from "../components/commission/CommissionFidget";
 import { PayoutHistory } from "../components/commission/PayoutHistory";
+import { WithdrawalRequests } from "../components/commission/WithdrawalRequests";
 import { TableControls } from "../components/table/TableControls";
 import { confirmAlert, Pagination } from "../ui";
 import EditorCommisssionBonusModal from "../components/commission/CommissionBonusEditor";
 import {
   useCommissionQuery,
   usePayoutQuery,
+  useWithdrawalRequestsQuery,
 } from "../hooks/query/useCommission";
 import { useUpdateCommissionMutation } from "../hooks/mutations/commission/useCommissionUpdate";
 import { useDebounce } from "../hooks/useDebounce";
@@ -47,6 +49,18 @@ const CommissionPayout = () => {
   const payoutHistoryData = payoutHistory?.data;
   const pagination = payoutHistory?.pagination;
 
+  const { data: withdrawalRequests } = useWithdrawalRequestsQuery({
+    page,
+    search: debouncedSearch,
+    startDate: debouncedStartDate,
+    endDate: deboucedEndDate,
+    sortBy: deboucedSortBy,
+    sortOrder: deboucedSortOrder,
+  });
+
+  const withdrawalRequestData = withdrawalRequests?.data;
+  const totalRequestedAmount = withdrawalRequests?.totalRequestedAmount ?? 0;
+
   const handleCommissionEdit = async (updatedCommission: number) => {
     const confirmed = await confirmAlert();
     if (!confirmed) return;
@@ -86,6 +100,14 @@ const CommissionPayout = () => {
           onCommissionType={handleCommissionType}
         />
       </div>
+      <div className="mt-8">
+        <h1 className="mb-2 font-bold text-lg">Withdrawal Requests</h1>
+        <p className="mb-4 text-sm text-gray-300">
+          Total Requested Amount: ₹{totalRequestedAmount.toFixed(2)}
+        </p>
+        <WithdrawalRequests requests={withdrawalRequestData} />
+      </div>
+
       <div className="mt-8">
         <h1 className="mb-4 font-bold text-lg">Payout History</h1>
         <TableControls

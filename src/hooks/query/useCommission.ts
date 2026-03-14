@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCallRateApi, getCoinRatioApi, getCommissionApi, payoutHistoryListApi } from "../../api/commission.api";
+import { getCallRateApi, getCoinRatioApi, getCommissionApi, payoutHistoryListApi, withdrawalRequestsListApi } from "../../api/commission.api";
 import { type CallRateDataType } from "../../types/coinManagement/callRate.type";
 import { type CoinRatioType, type commissionType } from "../../types/commission.type";
-import type { PaginatedResponse, PayoutHistoryType, UseQueryParams } from "../../types/general.type";
+import type { PaginatedResponse, PayoutHistoryType, UseQueryParams, WithdrawalRequestResponse } from "../../types/general.type";
 
 export const useCallRateQuery = () => {
   return useQuery<CallRateDataType[]>({
@@ -47,6 +47,18 @@ export const usePayoutQuery = (params: UseQueryParams) => {
     ],
     queryFn: () =>
       payoutHistoryListApi(params),
+    placeholderData: (previousData) => previousData,
+  });
+};
+
+export const useWithdrawalRequestsQuery = (params: UseQueryParams) => {
+  return useQuery<WithdrawalRequestResponse>({
+    queryKey: [
+      "withdrawal-requests",
+      params,
+    ],
+    queryFn: () =>
+      withdrawalRequestsListApi(params),
     placeholderData: (previousData) => previousData,
   });
 };

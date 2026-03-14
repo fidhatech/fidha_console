@@ -3,6 +3,7 @@ import { Button, Table, type Column, AudioPlayer } from "../../ui";
 export type UserType = {
   id: number | string;
   name: string;
+  phone?: string;
   role: string;
   isBlocked: boolean;
   submittedDate: string | Date;
@@ -14,6 +15,11 @@ const columns = (
   onAccept: (id: number | string) => void
 ): Column<UserType>[] => [
   { key: "name", header: "Name" },
+  {
+    key: "phone",
+    header: "Phone",
+    render: (row) => row.phone || "-",
+  },
   {
     key: "role",
     header: "Role",

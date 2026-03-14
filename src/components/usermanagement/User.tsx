@@ -3,6 +3,7 @@ import { type UserListType } from "../../types/user.type";
 
 const columns = (onBlock: (id: string) => void): Column<UserListType>[] => [
   { key: "name", header: "Name" },
+  { key: "phone", header: "Phone" },
   {
     key: "role",
     header: "Role",
