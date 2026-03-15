@@ -40,6 +40,11 @@ export const SidebarItems = [
     path: "/admin/offer-festival",
   },
   {
+    title: "Notifications",
+    icon: Icons.Notification,
+    path: "/admin/notifications",
+  },
+  {
     title: "Security",
     icon: Icons.Secure,
     path: "/admin/security",

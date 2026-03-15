@@ -12,6 +12,7 @@ import { AdminLayout } from "./layouts/AdminLayout";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { PublicRoute } from "./components/auth/PublicRoute.tsx";
 import SecurityPage from "./pages/Security.tsx";
+import NotificationsPage from "./pages/Notifications.tsx";
 import { Toast } from "./ui/Toasters/Toast.tsx";
 function App() {
   return (
@@ -100,6 +101,17 @@ function App() {
             <ProtectedRoute>
               <AdminLayout>
                 <OfferFestival />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/notifications"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <NotificationsPage />
               </AdminLayout>
             </ProtectedRoute>
           }
