@@ -6,6 +6,7 @@ export type OfferType = {
   coins: number,
   offerPrice: number,
   actualPrice: number,
+  isWelcomeOffer?: boolean,
 
 }
 
@@ -40,4 +41,5 @@ export type OfferFestivalType = {
   startDate: string,
   endDate: string,
   type: string,
+  isWelcomeOffer?: boolean,
 };

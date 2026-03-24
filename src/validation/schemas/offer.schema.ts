@@ -9,6 +9,7 @@ export const offerSchema = z.object({
   offerPrice: positiveNumber,
 
   type: requiredString,
+  isWelcomeOffer: z.boolean(),
 
   startDate: requiredDate,
   endDate: requiredDate,

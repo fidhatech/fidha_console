@@ -47,3 +47,14 @@ export const useUpdateCoinRatioMutation = () => {
   });
 };
 
+export const useUpdateSignupBonusMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, data, type }: UpdateCommissionPayload) => updatedCommissionApi(id as string, data, type),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["signup-bonus"] });
+    },
+  });
+};
+

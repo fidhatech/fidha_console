@@ -5,12 +5,14 @@ export type TokenType = {
 
 export type GetParams = {
   page: number;
+  pageSize?: number;
   search?: string;
   startDate?: string;
   endDate?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
   role?: string,
+  gender?: string,
   isBlocked?: boolean;
 };
 
@@ -26,12 +28,14 @@ export type PaginatedResponse<T> = {
 
 export type UseQueryParams = {
   page: number;
+  pageSize?: number;
   search: string;
   startDate: string;
   endDate: string;
   sortBy: string;
   sortOrder: 'asc' | 'desc';
   role?: string,
+  gender?: string,
   isBlocked?: boolean;
 };
 

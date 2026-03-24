@@ -11,3 +11,8 @@ export const transactionHistoryApi = async (params: GetParams): Promise<Paginate
   const res = await api.get<PaginatedResponse<TransactionHistoryType>>("/transaction/history", { params });
   return res.data;
 };
+
+export const grantBonusCoinsApi = async (payload: import("../types/wallet.type").BonusCoinsGrantPayload) => {
+  const res = await api.post("/wallet/bonus-coins", payload);
+  return res.data;
+};

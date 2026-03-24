@@ -11,6 +11,7 @@ export type OfferFestivalType = {
   startDate: string;
   endDate: string;
   type: string;
+  isWelcomeOffer?: boolean;
 };
 
 const columns = (
@@ -33,9 +34,16 @@ const columns = (
     key: "id",
     header: "Type",
     render: (row) => (
-      <p className="px-2 py-1 rounded max-w-18 text-center text-gray-900">
-        {row.type}
-      </p>
+      <div className="flex flex-col gap-1">
+        <p className="px-2 py-1 rounded max-w-24 text-center text-gray-900 bg-gray-100">
+          {row.type}
+        </p>
+        {row.isWelcomeOffer && (
+          <span className="px-2 py-1 rounded max-w-24 text-center text-xs font-semibold text-amber-900 bg-amber-100">
+            Welcome Offer
+          </span>
+        )}
+      </div>
     ),
   },
 

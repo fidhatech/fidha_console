@@ -13,3 +13,11 @@ export type CoinRatioType = {
       coinRatio: number,
       description: string,
 };
+
+export type SignupBonusType = {
+      id: string,
+      title: string,
+      type: string,
+      signupBonusCoins: number,
+      description: string,
+};

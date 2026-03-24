@@ -1,6 +1,6 @@
 import api from "./axios";
 import { type CallRateDataType, type CallRateType } from "../types/coinManagement/callRate.type";
-import type { CoinRatioType, commissionType } from "../types/commission.type";
+import type { CoinRatioType, commissionType, SignupBonusType } from "../types/commission.type";
 import type { GetParams, PaginatedResponse, PayoutHistoryType, WithdrawalRequestResponse } from "../types/general.type";
 
 export const payoutHistoryListApi = async (params: GetParams): Promise<PaginatedResponse<PayoutHistoryType>> => {
@@ -20,6 +20,11 @@ export const getCommissionApi = async (): Promise<commissionType[]> => {
 
 export const getCoinRatioApi = async(): Promise<CoinRatioType> => {
     const res = await api.get<CoinRatioType>('/commission/ratio');
+    return res.data;
+};
+
+export const getSignupBonusApi = async(): Promise<SignupBonusType> => {
+    const res = await api.get<SignupBonusType>('/commission/signup-bonus');
     return res.data;
 };
 

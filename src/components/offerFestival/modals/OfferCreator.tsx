@@ -39,6 +39,7 @@ export const OfferCreator = ({
       actualPrice: 0,
       offerPrice: 0,
       type: "offer",
+      isWelcomeOffer: false,
       startDate: "2026-01-01",
       endDate: "2026-12-01",
     },
@@ -72,11 +73,18 @@ export const OfferCreator = ({
       }
     >
       <div className="space-y-2">
-        <Input
-          label="Offer Name"
-          {...register("title")}
-          error={errors.title?.message}
-        />
+        <div className="space-y-1">
+          <label className="text-sm font-medium text-gray-700">Offer Name / Description</label>
+          <textarea
+            {...register("title")}
+            rows={4}
+            placeholder="Enter full offer title or description"
+            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+          {errors.title?.message && (
+            <span className="text-xs text-red-500">{errors.title.message}</span>
+          )}
+        </div>
 
         <Input
           label="Coins"
@@ -108,6 +116,11 @@ export const OfferCreator = ({
           }
           error={errors.type?.message}
         />
+
+        <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+          <input type="checkbox" {...register("isWelcomeOffer")} />
+          Mark as Welcome Offer
+        </label>
 
         {/* Date range */}
         <DateFilter
