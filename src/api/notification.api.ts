@@ -3,6 +3,7 @@ import api from "./axios";
 export type BroadcastNotificationPayload = {
   title: string;
   message: string;
+  gender?: 'male' | 'female';
 };
 
 export type BroadcastNotificationResponse = {

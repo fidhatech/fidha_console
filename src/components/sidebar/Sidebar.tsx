@@ -45,6 +45,11 @@ export const SidebarItems = [
     path: "/admin/notifications",
   },
   {
+    title: "App Update",
+    icon: Icons.Update,
+    path: "/admin/app-update",
+  },
+  {
     title: "Security",
     icon: Icons.Secure,
     path: "/admin/security",

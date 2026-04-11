@@ -8,6 +8,7 @@ import CommissionPayout from "./pages/CommissionPayout.tsx";
 import WalletTransaction from "./pages/WalletTransactions.tsx";
 import OfferFestival from "./pages/OfferFestival.tsx";
 import CoinManagement from "./pages/CoinManagement.tsx";
+import AppUpdatePage from "./pages/AppUpdate.tsx";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { PublicRoute } from "./components/auth/PublicRoute.tsx";
@@ -124,6 +125,17 @@ function App() {
             <ProtectedRoute>
               <AdminLayout>
                 <SecurityPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/app-update"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <AppUpdatePage />
               </AdminLayout>
             </ProtectedRoute>
           }

@@ -18,6 +18,7 @@ import { FaRupeeSign } from "react-icons/fa";
 export { type IconType } from "react-icons";
 import { TiThMenu } from "react-icons/ti";
 import { MdSecurity } from "react-icons/md";
+import { MdSystemUpdate } from "react-icons/md";
 
 export const Icons = {
     Dashboard: MdOutlineDashboard,
@@ -39,4 +40,5 @@ export const Icons = {
     Rupee: FaRupeeSign,
     Menu: TiThMenu,
     Secure: MdSecurity,
+    Update: MdSystemUpdate,
 } as const
