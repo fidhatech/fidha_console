@@ -1,7 +1,7 @@
 import { Button, Table, type Column } from "../../ui";
 import { type UserListType } from "../../types/user.type";
 
-const columns = (onBlock: (id: string) => void): Column<UserListType>[] => [
+const columns = (onBlock: (user: UserListType) => void): Column<UserListType>[] => [
   { key: "name", header: "Name" },
   { key: "phone", header: "Phone" },
   {
@@ -38,7 +38,7 @@ const columns = (onBlock: (id: string) => void): Column<UserListType>[] => [
     key: "id",
     header: "Action",
     render: (row) => (
-      <Button variant="action" onClick={() => onBlock(row.id)}>
+      <Button variant="action" onClick={() => onBlock(row)}>
         {row.isBlocked ? "Unblock" : "Block"}
       </Button>
     ),
@@ -47,7 +47,7 @@ const columns = (onBlock: (id: string) => void): Column<UserListType>[] => [
 
 type UserProps = {
   users: UserListType[] | undefined;
-  onBlock: (id: string) => void;
+  onBlock: (user: UserListType) => void;
 };
 
 export default function User({ users, onBlock }: UserProps) {

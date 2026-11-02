@@ -7,6 +7,7 @@ import { useUserQuery } from "../hooks/query/useUser";
 import { useDebounce } from "../hooks/useDebounce";
 import { useUpdateUserMutation } from "../hooks/mutations/user/useUpdateUser";
 import { toastPromise } from "../ui/Toasters/toast.helper";
+import type { UserListType } from "../types/user.type";
 
 export default function UserManagement() {
   const [search, setSearch] = useState("");
@@ -53,12 +54,20 @@ export default function UserManagement() {
 
   const { mutateAsync: updateUser } = useUpdateUserMutation();
 
-  const handleBlockUser = async (userId: string) => {
-    const confirmed = await confirmAlert();
+  const handleBlockUser = async (user: UserListType) => {
+    const block = !user.isBlocked;
+    const label = user.name || user.phone || "this user";
+    const confirmed = await confirmAlert({
+      title: block ? `Block ${label}?` : `Unblock ${label}?`,
+      text: block
+        ? "They will be logged out immediately, cannot log in again, and will be hidden from the app."
+        : "They will be able to log in and use the app again.",
+      confirmText: block ? "Block" : "Unblock",
+    });
     if (!confirmed) return;
-    await toastPromise(updateUser(userId), {
+    await toastPromise(updateUser({ id: user.id, isBlocked: block }), {
       pending: 'Request is processing',
-      success: 'Updated successfully',
+      success: block ? 'User blocked' : 'User unblocked',
       error:'Something went wrong'
     });
   };

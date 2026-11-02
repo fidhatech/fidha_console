@@ -2,7 +2,8 @@ import type { GetParams, PaginatedResponse } from "../types/general.type";
 import type { UserListType } from "../types/user.type";
 import api from "./axios";
 
-export const restrictUserApi = (userId: string) => api.patch('/user/block', { userId });
+export const restrictUserApi = (userId: string, isBlocked: boolean) =>
+  api.patch('/user/block', { userId, isBlocked });
 
 export const usersListApi = async (params: GetParams): Promise<PaginatedResponse<UserListType>> => {
   const res = await api.get<PaginatedResponse<UserListType>>("/users", { params });

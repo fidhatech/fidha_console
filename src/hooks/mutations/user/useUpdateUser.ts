@@ -5,8 +5,8 @@ export const useUpdateUserMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: string) =>
-      restrictUserApi(id),
+    mutationFn: ({ id, isBlocked }: { id: string; isBlocked: boolean }) =>
+      restrictUserApi(id, isBlocked),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
