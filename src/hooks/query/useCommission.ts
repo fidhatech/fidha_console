@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCallRateApi, getCoinRatioApi, getCommissionApi, getSignupBonusApi, payoutHistoryListApi, withdrawalRequestsListApi } from "../../api/commission.api";
+import { getCallRateApi, payoutHistoryListApi, withdrawalRequestsListApi } from "../../api/commission.api";
 import { type CallRateDataType } from "../../types/coinManagement/callRate.type";
-import { type CoinRatioType, type commissionType, type SignupBonusType } from "../../types/commission.type";
 import type { PaginatedResponse, PayoutHistoryType, UseQueryParams, WithdrawalRequestResponse } from "../../types/general.type";
 
 export const useCallRateQuery = () => {
@@ -11,40 +10,6 @@ export const useCallRateQuery = () => {
     ],
     queryFn: () =>
       getCallRateApi(),
-    placeholderData: (previousData) => previousData,
-  });
-};
-
-
-export const useCommissionQuery = () => {
-  return useQuery<commissionType[]>({
-    queryKey: [
-      "commission",
-    ],
-    queryFn: () =>
-      getCommissionApi(),
-    placeholderData: (previousData) => previousData,
-  });
-};
-
-export const useCoinRatioQuery = () => {
-  return useQuery<CoinRatioType>({
-    queryKey: [
-      "commission-ratio",
-    ],
-    queryFn: () =>
-      getCoinRatioApi(),
-    placeholderData: (previousData) => previousData,
-  });
-};
-
-export const useSignupBonusQuery = () => {
-  return useQuery<SignupBonusType>({
-    queryKey: [
-      "signup-bonus",
-    ],
-    queryFn: () =>
-      getSignupBonusApi(),
     placeholderData: (previousData) => previousData,
   });
 };

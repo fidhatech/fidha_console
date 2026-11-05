@@ -8,6 +8,8 @@ import CommissionPayout from "./pages/CommissionPayout.tsx";
 import WalletTransaction from "./pages/WalletTransactions.tsx";
 import OfferFestival from "./pages/OfferFestival.tsx";
 import CoinManagement from "./pages/CoinManagement.tsx";
+import CoinSettings from "./pages/CoinSettings.tsx";
+import UserWallet from "./pages/UserWallet.tsx";
 import AppUpdatePage from "./pages/AppUpdate.tsx";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
@@ -47,6 +49,28 @@ function App() {
             <ProtectedRoute>
               <AdminLayout>
                 <UserManagement />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/user-management/:userId/wallet"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <UserWallet />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/coin-settings"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <CoinSettings />
               </AdminLayout>
             </ProtectedRoute>
           }

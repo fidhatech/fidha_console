@@ -1,24 +1,16 @@
 import { useState } from "react";
-import { CommissionFidget } from "../components/commission/CommissionFidget";
+import { CoinSettingsSummary } from "../components/commission/CoinSettingsSummary";
 import { PayoutHistory } from "../components/commission/PayoutHistory";
 import { WithdrawalRequests } from "../components/commission/WithdrawalRequests";
 import { TableControls } from "../components/table/TableControls";
-import { confirmAlert, Pagination } from "../ui";
-import EditorCommisssionBonusModal from "../components/commission/CommissionBonusEditor";
+import { Pagination } from "../ui";
 import {
-  useCommissionQuery,
   usePayoutQuery,
   useWithdrawalRequestsQuery,
 } from "../hooks/query/useCommission";
-import { useUpdateCommissionMutation } from "../hooks/mutations/commission/useCommissionUpdate";
 import { useDebounce } from "../hooks/useDebounce";
-import { toastPromise } from "../ui/Toasters/toast.helper";
 
 const CommissionPayout = () => {
-  const [commissionOpen, setCommissionOpen] = useState(false);
-  const [commissionType, setCommissionType] = useState("");
-  const [commissionData, setCommissionData] = useState<number>(0);
-
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [startDate, setFromDate] = useState("");
@@ -31,10 +23,6 @@ const CommissionPayout = () => {
   const deboucedEndDate = useDebounce(endDate, 500);
   const deboucedSortBy = useDebounce(sortBy, 500);
   const deboucedSortOrder = useDebounce(sortOrder, 500);
-
-
-  const { data: commissions } = useCommissionQuery();
-  const { mutateAsync: updateCommission } = useUpdateCommissionMutation();
 
   const { data: payoutHistory } = usePayoutQuery({
     page,
@@ -61,44 +49,11 @@ const CommissionPayout = () => {
   const withdrawalRequestData = withdrawalRequests?.data;
   const totalRequestedAmount = withdrawalRequests?.totalRequestedAmount ?? 0;
 
-  const handleCommissionEdit = async (updatedCommission: number) => {
-    const confirmed = await confirmAlert();
-    if (!confirmed) return;
-    if (!commissions) return;
-    await toastPromise(updateCommission({
-      id: commissions[0].id,
-      data: updatedCommission,
-      type: commissionType,
-    }), {
-      pending: 'Request is processing',
-      success: 'Updated in successfully',
-      error:'Something went wrong'
-    })
-  };
-
-  const handleCommissionType = (type: string) => {
-    setCommissionType(type);
-    if (!commissions) return;
-    let data = commissions.filter((item) => item.type === type)[0];
-    setCommissionData(data.commissionPercentage);
-    setCommissionOpen(true);
-  };
-
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <EditorCommisssionBonusModal
-          data={commissionData}
-          isOpen={commissionOpen}
-          onClose={() => setCommissionOpen(false)}
-          onEdit={handleCommissionEdit}
-          type={commissionType}
-        />
-
-        <CommissionFidget
-          commissionData={commissions}
-          onCommissionType={handleCommissionType}
-        />
+        {/* Commission split, payout rate and withdrawal rules come from coin settings. */}
+        <CoinSettingsSummary show={["commission", "payoutRate", "withdrawal"]} />
       </div>
       <div className="mt-8">
         <h1 className="mb-2 font-bold text-lg">Withdrawal Requests</h1>

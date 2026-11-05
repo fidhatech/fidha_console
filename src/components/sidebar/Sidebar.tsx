@@ -35,6 +35,11 @@ export const SidebarItems = [
     path: "/admin/coin-management",
   },
   {
+    title: "Coin Settings",
+    icon: Icons.Rupee,
+    path: "/admin/coin-settings",
+  },
+  {
     title: "Offer & Festival management",
     icon: Icons.OfferFestival,
     path: "/admin/offer-festival",

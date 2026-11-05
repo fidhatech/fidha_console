@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { Button, Table, type Column } from "../../ui";
 import { type UserListType } from "../../types/user.type";
 
@@ -38,9 +39,18 @@ const columns = (onBlock: (user: UserListType) => void): Column<UserListType>[] 
     key: "id",
     header: "Action",
     render: (row) => (
-      <Button variant="action" onClick={() => onBlock(row)}>
-        {row.isBlocked ? "Unblock" : "Block"}
-      </Button>
+      <div className="flex items-center gap-2">
+        <Button variant="action" onClick={() => onBlock(row)}>
+          {row.isBlocked ? "Unblock" : "Block"}
+        </Button>
+        <Link
+          to={`/admin/user-management/${row.id}/wallet`}
+          state={{ name: row.name || row.phone }}
+          className="px-4 py-2 rounded-md font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 transition"
+        >
+          Wallet
+        </Link>
+      </div>
     ),
   },
 ];

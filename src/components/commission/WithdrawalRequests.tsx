@@ -7,6 +7,11 @@ const columns: Column<WithdrawalRequestType>[] = [
   { key: "accountNumber", header: "Account Number" },
   { key: "ifscCode", header: "IFSC Code" },
   {
+    key: "coins",
+    header: "Coins",
+    render: (row) => (typeof row.coins === "number" ? row.coins.toLocaleString("en-IN") : "-"),
+  },
+  {
     key: "requestedAmount",
     header: "Requested Amount",
     render: (row) => `₹${Number(row.requestedAmount ?? 0).toFixed(2)}`,

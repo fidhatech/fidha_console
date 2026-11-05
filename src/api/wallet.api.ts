@@ -1,5 +1,14 @@
 import api from "./axios";
-import { type TransactionHistoryType, type WalletFigureType } from "../types/wallet.type";
+import type {
+  BonusCoinsGrantPayload,
+  BonusCoinsGrantResult,
+  CoinsDeductPayload,
+  CoinsDeductResult,
+  TransactionHistoryType,
+  UserWalletPage,
+  WalletActionResponse,
+  WalletFigureType,
+} from "../types/wallet.type";
 import type { GetParams, PaginatedResponse } from "../types/general.type";
 
 export const getWalletTractionApi = async (): Promise<WalletFigureType[]> => {
@@ -12,7 +21,20 @@ export const transactionHistoryApi = async (params: GetParams): Promise<Paginate
   return res.data;
 };
 
-export const grantBonusCoinsApi = async (payload: import("../types/wallet.type").BonusCoinsGrantPayload) => {
-  const res = await api.post("/wallet/bonus-coins", payload);
+export const grantBonusCoinsApi = async (payload: BonusCoinsGrantPayload): Promise<WalletActionResponse<BonusCoinsGrantResult>> => {
+  const res = await api.post<WalletActionResponse<BonusCoinsGrantResult>>("/wallet/bonus-coins", payload);
+  return res.data;
+};
+
+export const deductCoinsApi = async (payload: CoinsDeductPayload): Promise<WalletActionResponse<CoinsDeductResult>> => {
+  const res = await api.post<WalletActionResponse<CoinsDeductResult>>("/wallet/deduct-coins", payload);
+  return res.data;
+};
+
+export const userWalletApi = async (
+  userId: string,
+  params: { cursor?: string; limit?: number } = {}
+): Promise<UserWalletPage> => {
+  const res = await api.get<UserWalletPage>(`/wallet/user/${encodeURIComponent(userId)}`, { params });
   return res.data;
 };

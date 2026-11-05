@@ -16,22 +16,17 @@ import type {
 } from "../types/coinManagement/callRate.type";
 import type { RowType1, RowType2 } from "../types/offer.types";
 import OfferModal from "../components/modals/ViewModal";
-import { useCallRateQuery, useCoinRatioQuery } from "../hooks/query/useCommission";
+import { useCallRateQuery } from "../hooks/query/useCommission";
 import { useCreateCoinMutation } from "../hooks/mutations/coin/useCreatePackage";
 import { useUpdateCoinMutation } from "../hooks/mutations/coin/useUpdatePackage";
 import { useDeleteCoinMutation } from "../hooks/mutations/coin/useDeletePackage";
 import { useCoinsQuery } from "../hooks/query/useCoin";
 import { useDebounce } from "../hooks/useDebounce";
-import { useUpdateCallRateMutation, useUpdateCoinRatioMutation } from "../hooks/mutations/commission/useCommissionUpdate";
-import { CoinRatioFidget } from "../components/commission/CoinRatioFidget";
-import EditorCommisssionBonusModal from "../components/commission/CommissionBonusEditor";
+import { useUpdateCallRateMutation } from "../hooks/mutations/commission/useCommissionUpdate";
+import { CoinSettingsSummary } from "../components/commission/CoinSettingsSummary";
 import { toastPromise } from "../ui/Toasters/toast.helper";
 
 const CoinManagement = () => {
-  const [commissionOpen, setCommissionOpen] = useState(false);
-  const [commissionType, setCommissionType] = useState("");
-  const [coinRatioValue, setCoinRatioData] = useState<number>(0);
-
   const [callType, setType] = useState("premium");
   const [callRate, setCallRate] = useState<CallRateType>({
     audioCallRate: 0,
@@ -71,7 +66,6 @@ const CoinManagement = () => {
   });
 
   const { data: callRateData } = useCallRateQuery();
-  const {data: coinRatioData} = useCoinRatioQuery();
 
   const coinPackages = coinData?.data ?? [];
   const pagination = coinData?.pagination;
@@ -81,7 +75,6 @@ const CoinManagement = () => {
   const { mutateAsync: deleteCoin } = useDeleteCoinMutation();
 
   const { mutateAsync: updateCallRate } = useUpdateCallRateMutation();
-  const { mutateAsync: updateCommission } = useUpdateCoinRatioMutation();
 
   const handleViewPackage = (row: RowType1 | RowType2) => {
     setSelectedRow(row);
@@ -157,28 +150,6 @@ const CoinManagement = () => {
     });
   };
 
-  const handleCommissionEdit = async (updatedCommission: number) => {
-    const confirmed = await confirmAlert();
-    if (!confirmed) return;
-    if (!coinRatioData) return;
-    await toastPromise(updateCommission({
-      id: coinRatioData.id,
-      data: updatedCommission,
-      type: commissionType,
-    }), {
-      pending: 'Request is processing',
-      success: 'Updated successfully',
-      error:'Something went wrong'
-    });
-  };
-
-  const handleCommissionType = (type: string) => {
-    setCommissionType(type);
-    if (!coinRatioData) return;
-    setCoinRatioData(coinRatioData.coinRatio);
-    setCommissionOpen(true);
-  };
-
   return (
     <div>
       <EditCallRateModal
@@ -202,25 +173,14 @@ const CoinManagement = () => {
         onEdit={handleUpdatePackage}
       />
 
-      <EditorCommisssionBonusModal
-        data={coinRatioValue}
-        isOpen={commissionOpen}
-        onClose={() => setCommissionOpen(false)}
-        onEdit={handleCommissionEdit}
-        type={commissionType}
-      />
-
-
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <CoinFidget
           callRateData={callRateData}
           onCallRate={handleCallRateType}
       />
-      <CoinRatioFidget
-       ratio={coinRatioData}
-       onRatio={handleCommissionType}
-      />
+      {/* What employees' coins pay out; set on Coin Settings. */}
+      <CoinSettingsSummary show={["payoutRate"]} />
       </div>
       <div className="mt-8">
         <div className="flex mb-2 items-center justify-between">

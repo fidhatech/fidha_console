@@ -14,6 +14,8 @@ export type GetParams = {
   role?: string,
   gender?: string,
   isBlocked?: boolean;
+  /** Ledger type filter (transaction history only). */
+  type?: string;
 };
 
 export type PaginatedResponse<T> = {
@@ -49,6 +51,8 @@ export type PayoutHistoryType = {
         amount:number,
         status:boolean,
         transactionId:string,
+        /** Coins moved; `amount` is their ₹ value at the current payout rate. */
+        coins?: number,
 };
 
 export type WithdrawalRequestType = {
@@ -62,6 +66,8 @@ export type WithdrawalRequestType = {
   netAmount: number;
   fee: number;
   status: string;
+  /** Coins held for the withdrawal. */
+  coins?: number;
 };
 
 export type WithdrawalRequestResponse = PaginatedResponse<WithdrawalRequestType> & {

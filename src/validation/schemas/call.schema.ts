@@ -1,9 +1,10 @@
 import { z } from "zod";
-import { positiveNumber } from "../fields";
+import { positiveWholeNumber } from "../fields";
 
+// Coins per minute. Whole numbers only: the mobile app parses these as int.
 export const callRateSchema = z.object({
-  audioCallRate: positiveNumber,
-  videoCallRate: positiveNumber,
+  audioCallRate: positiveWholeNumber,
+  videoCallRate: positiveWholeNumber,
 });
 
 export type CallRateFormValues = z.infer<typeof callRateSchema>;

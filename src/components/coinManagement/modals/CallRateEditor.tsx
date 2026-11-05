@@ -69,14 +69,14 @@ export const EditCallRateModal = ({
     >
       <div className="space-y-4">
         <Input
-          label="Audio Call Rate"
+          label="Audio Call Rate (coins / min)"
           type="number"
           {...register("audioCallRate", { valueAsNumber: true })}
           error={errors.audioCallRate?.message}
         />
 
         <Input
-          label="Video Call Rate"
+          label="Video Call Rate (coins / min)"
           type="number"
           {...register("videoCallRate", { valueAsNumber: true })}
           error={errors.videoCallRate?.message}

@@ -8,6 +8,8 @@ export type PayoutHistoryType = {
   avatar?: string;
   status: boolean;
   transactionId: string;
+  /** Signed coins; `amount` is their ₹ value at the current payout rate. */
+  coins?: number;
 };
 
 const columns: Column<PayoutHistoryType>[] = [
@@ -17,8 +19,13 @@ const columns: Column<PayoutHistoryType>[] = [
     header: "Date",
   },
   {
+    key: "coins",
+    header: "Coins",
+    render: (row) => (typeof row.coins === "number" ? row.coins.toLocaleString("en-IN") : "-"),
+  },
+  {
     key: "amount",
-    header: "Amount",
+    header: "Amount (₹)",
   },
   {
     key: "status",
